@@ -1,6 +1,6 @@
 ﻿namespace TikTak
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -212,7 +212,7 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Computer";
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -227,8 +227,9 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button0);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "TikTak";
             this.scoreGroupBox.ResumeLayout(false);
             this.scoreGroupBox.PerformLayout();
             this.ResumeLayout(false);
