@@ -109,14 +109,14 @@ namespace TikTak
         {
             var edgesIndex = new int[] {1, 3, 5, 7};
             var cornersIndex = new [] {0, 2, 6, 8};
-            foreach (int index in edgesIndex)
+            foreach (int index in cornersIndex)
             {
                 if (!board.ContainsKey(index))
                 {
                     return index;
                 }
             }
-            foreach (int index in cornersIndex)
+            foreach (int index in edgesIndex)
             {
                 if (!board.ContainsKey(index))
                 {

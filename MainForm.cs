@@ -15,15 +15,15 @@ namespace TikTak
         public MainForm()
         {
             InitializeComponent();
-            firstPlayer = Player.X;
+            firstPlayer = PlayerType.PlayerX;
             currentPlayer = firstPlayer;
         }
 
         bool gameover = false;
         //Player currentPlayer = Player.X;
-        Player currentPlayer;
-        Player firstPlayer;
-        Player? winner = null;
+        PlayerType currentPlayer;
+        PlayerType firstPlayer;
+        PlayerType? winner = null;
         int[] winningIndex;
         Dictionary<int, string> GameBoard = new Dictionary<int, string>();
 
@@ -35,9 +35,9 @@ namespace TikTak
                 return;
             }
 
-            string value = currentPlayer == Player.X ? "X" : "O";
+            string value = currentPlayer == PlayerType.PlayerX ? "X" : "O";
             btn.Text = value;
-            currentPlayer = currentPlayer == Player.X ? Player.O : Player.X;
+            currentPlayer = currentPlayer == PlayerType.PlayerX ? PlayerType.PlayerO : PlayerType.PlayerX;
 
             if (string.IsNullOrEmpty(value))
             {
@@ -60,10 +60,10 @@ namespace TikTak
                 DisplayGameState(winner);
                 ResetGame();
 
-                firstPlayer = firstPlayer == Player.X ? Player.O : Player.X;
+                firstPlayer = firstPlayer == PlayerType.PlayerX ? PlayerType.PlayerO : PlayerType.PlayerX;
                 currentPlayer = firstPlayer;
             }
-            if (currentPlayer == Player.O)
+            if (currentPlayer == PlayerType.PlayerO)
             {
                 PlayForComputer();
             }
@@ -86,17 +86,17 @@ namespace TikTak
             Process(indexToPlay, button);
         }
 
-        private void DisplayGameState(Player? winner)
+        private void DisplayGameState(PlayerType? winner)
         {
             switch (winner)
             {
-                case Player.X:
+                case PlayerType.PlayerX:
                     {
                         MessageBox.Show("You win");
                         lblHuman.Text = (Convert.ToInt32(lblHuman.Text) + 1).ToString();
                         break;
                     }
-                case Player.O:
+                case PlayerType.PlayerO:
                     {
                         MessageBox.Show("You Lost");
                         lblComputer.Text = (Convert.ToInt32(lblComputer.Text) + 1).ToString();
@@ -120,7 +120,7 @@ namespace TikTak
                 button.Text = "";
                 button.BackColor = SystemColors.Control;
             }
-            currentPlayer = Player.X;
+            currentPlayer = PlayerType.PlayerX;
             gameover = false;
         }
 
