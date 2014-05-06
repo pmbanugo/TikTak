@@ -57,7 +57,7 @@ namespace TikTak
                 {
                     HighlightWinningSquares();
                 }
-                DisplayGameState(winner);
+                DisplayGameState();
                 ResetGame();
 
                 firstPlayer = firstPlayer == PlayerType.PlayerX ? PlayerType.PlayerO : PlayerType.PlayerX;
@@ -86,7 +86,7 @@ namespace TikTak
             Process(indexToPlay, button);
         }
 
-        private void DisplayGameState(PlayerType? winner)
+        private void DisplayGameState()
         {
             switch (winner)
             {

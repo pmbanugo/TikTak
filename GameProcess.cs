@@ -16,8 +16,7 @@ namespace TikTak
 
             for (int i = 0; i < 8; i++)
             {
-                int a = Winners[i, 0], b = Winners[i, 1],
-                    c = Winners[i, 2];
+                int a = Winners[i, 0], b = Winners[i, 1], c = Winners[i, 2];
 
                 if (board.ContainsKey(a) && board.ContainsKey(b) && board.ContainsKey(c))
                 {
@@ -38,15 +37,13 @@ namespace TikTak
                         winningIndex = oResult.Keys.ToArray();
                         return gameOver = true;
                     }
-                    else
-                    {                        
-                        var xResult = board.Where(containsX).ToDictionary();
-                        if (xResult.Count == 3)
-                        {
-                            winner = PlayerType.PlayerX;
-                            winningIndex = xResult.Keys.ToArray();
-                            return gameOver = true;
-                        }
+
+                    var xResult = board.Where(containsX).ToDictionary();
+                    if (xResult.Count == 3)
+                    {
+                        winner = PlayerType.PlayerX;
+                        winningIndex = xResult.Keys.ToArray();
+                        return gameOver = true;
                     }
                 }
             }
