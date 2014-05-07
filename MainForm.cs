@@ -20,7 +20,6 @@ namespace TikTak
         }
 
         bool gameover = false;
-        //Player currentPlayer = Player.X;
         PlayerType currentPlayer;
         PlayerType firstPlayer;
         PlayerType? winner = null;

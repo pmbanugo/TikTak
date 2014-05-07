@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TikTak
 {
@@ -153,16 +150,6 @@ namespace TikTak
                             return c;
                         }
 
-                        ////Play to the corner, inorder to prevent a fork
-                        //moved downward
-                        //for (int j = 1; j < attackIndex.Length; j++)
-                        //{
-                        //    var index = attackIndex[j];
-                        //    if (!board.ContainsKey(index))
-                        //    {
-                        //        return index;
-                        //    }
-                        //}
                     }
                 }
 
