@@ -20,15 +20,9 @@ namespace TikTak
 
                 if (board.ContainsKey(a) && board.ContainsKey(b) && board.ContainsKey(c))
                 {
-                    Func<KeyValuePair<int, string>, bool> containsO = input =>
-                    {
-                        return (input.Key == a || input.Key == b || input.Key == c) && input.Value == "O";
-                    };
+                    Func<KeyValuePair<int, string>, bool> containsO = input => (input.Key == a || input.Key == b || input.Key == c) && input.Value == "O";
 
-                    Func<KeyValuePair<int, string>, bool> containsX = input =>
-                    {
-                        return (input.Key == a || input.Key == b || input.Key == c) && input.Value == "X";
-                    };
+                    Func<KeyValuePair<int, string>, bool> containsX = input => (input.Key == a || input.Key == b || input.Key == c) && input.Value == "X";
 
                     var oResult = board.Where(containsO).ToDictionary();
                     if (oResult.Count == 3)
