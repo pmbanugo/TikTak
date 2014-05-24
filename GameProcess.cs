@@ -8,15 +8,26 @@ namespace TikTak
 {
     public static class GameProcess
     {
-        static private int[,] Winners = Utility.Winners;
+        private static int[,] winners = new int[,]  {
+						                    {0,1,2},
+						                    {3,4,5},
+						                    {6,7,8},
+						                    {0,3,6},
+						                    {1,4,7},
+						                    {2,5,8},
+						                    {0,4,8},
+						                    {2,4,6}
+                                        };
 
-        public static bool CheckAndProcessWinner(Dictionary<int,string> board, out Nullable<PlayerType> winner, out int[] winningIndex)
+        public static int[,] Winners { get { return winners; } }
+
+        public static bool ProcessGameState(Dictionary<int,string> board, out Nullable<PlayerSign> winner, out int[] winningIndex)
         {
             bool gameOver = false;
 
             for (int i = 0; i < 8; i++)
             {
-                int a = Winners[i, 0], b = Winners[i, 1], c = Winners[i, 2];
+                int a = winners[i, 0], b = winners[i, 1], c = winners[i, 2];
 
                 if (board.ContainsKey(a) && board.ContainsKey(b) && board.ContainsKey(c))
                 {
@@ -27,7 +38,7 @@ namespace TikTak
                     var oResult = board.Where(containsO).ToDictionary();
                     if (oResult.Count == 3)
                     {
-                        winner = PlayerType.PlayerO;
+                        winner = PlayerSign.Nought;
                         winningIndex = oResult.Keys.ToArray();
                         return gameOver = true;
                     }
@@ -35,7 +46,7 @@ namespace TikTak
                     var xResult = board.Where(containsX).ToDictionary();
                     if (xResult.Count == 3)
                     {
-                        winner = PlayerType.PlayerX;
+                        winner = PlayerSign.Cross;
                         winningIndex = xResult.Keys.ToArray();
                         return gameOver = true;
                     }
