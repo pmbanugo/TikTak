@@ -46,8 +46,9 @@
   <ItemGroup>
     <Compile Include="Board.cs" />
     <Compile Include="ComputerPlayer.cs" />
+    <Compile Include="ComputerWithMinimax.cs" />
     <Compile Include="Controller.cs" />
-    <Compile Include="FormFactory.cs" />
+    <Compile Include="CompositionRoot.cs" />
     <Compile Include="GameBoardUpdatedEventArgs.cs" />
     <Compile Include="GameCompletedEventArgs.cs" />
     <Compile Include="GameUI.cs">

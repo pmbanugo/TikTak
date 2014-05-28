@@ -16,7 +16,7 @@ namespace TikTak
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(FormFactory.GetStartupForm());
+            Application.Run(CompositionRoot.ComposeStartupForm());
         }
     }
 }
