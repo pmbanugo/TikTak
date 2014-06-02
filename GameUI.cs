@@ -32,8 +32,6 @@ namespace TikTak
 
         private void Reset()
         {
-            gameService.ResetGame();
-
             var buttons = this.Controls.OfType<Button>();
             foreach (Button button in buttons)
             {

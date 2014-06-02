@@ -21,6 +21,8 @@ namespace TikTak
 
         public void RestartGame()
         {
+            _gameService.ResetGame();
+
             if (isComputerTurn())
             {
                 MakeMoveForComputerPlayer();
