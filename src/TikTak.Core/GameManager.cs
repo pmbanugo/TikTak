@@ -47,39 +47,36 @@ namespace TikTak.Core
         public void ProcessWinner()
         {
             var board = GameBoard.Content;
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < winningIndex.GetLength(0); i++)
             {
-                int a = winningIndex[i, 0], b = winningIndex[i, 1], c = winningIndex[i, 2];
+                int firstIndex = winningIndex[i, 0], secondIndex = winningIndex[i, 1], c = winningIndex[i, 2];
 
-                if (board.ContainsKey(a) && board.ContainsKey(b) && board.ContainsKey(c))
+                Func<KeyValuePair<int, string>, bool> containsO = input => (input.Key == firstIndex || input.Key == secondIndex || input.Key == c) && input.Value == "O";
+                Func<KeyValuePair<int, string>, bool> containsX = input => (input.Key == firstIndex || input.Key == secondIndex || input.Key == c) && input.Value == "X";
+
+                var oResult = board.Where(containsO).ToDictionary();
+                if (oResult.Count == 3)
                 {
-                    Func<KeyValuePair<int, string>, bool> containsO = input => (input.Key == a || input.Key == b || input.Key == c) && input.Value == "O";
-
-                    Func<KeyValuePair<int, string>, bool> containsX = input => (input.Key == a || input.Key == b || input.Key == c) && input.Value == "X";
-
-                    var oResult = board.Where(containsO).ToDictionary();
-                    if (oResult.Count == 3)
-                    {
-                        Winner = Player.Computer;
-                        WinnerIndex = oResult.Keys.ToArray();
-                        _gameOver = true;
-                        return;
-                    }
-
-                    var xResult = board.Where(containsX).ToDictionary();
-                    if (xResult.Count == 3)
-                    {
-                        Winner = Player.Human;
-                        WinnerIndex = xResult.Keys.ToArray();
-                        _gameOver = true;
-                        return;
-                    }
+                    Winner = Player.Computer;
+                    WinnerIndex = oResult.Keys.ToArray();
+                    _gameOver = true;
+                    return;
                 }
-            }
-            if (board.Count == 9)
-            {
-                _gameOver = true;
-                Winner = null;
+
+                var xResult = board.Where(containsX).ToDictionary();
+                if (xResult.Count == 3)
+                {
+                    Winner = Player.Human;
+                    WinnerIndex = xResult.Keys.ToArray();
+                    _gameOver = true;
+                    return;
+                }
+
+                if (board.Count == 9)
+                {
+                    _gameOver = true;
+                    Winner = null;
+                }
             }
         }
 
