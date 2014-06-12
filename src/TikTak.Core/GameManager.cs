@@ -7,88 +7,31 @@ namespace TikTak.Core
 {
     public class GameManager : IGameManager
     {
-
-        private static int[,] winningIndex = new int[,]  {
-						                    {0,1,2},
-						                    {3,4,5},
-						                    {6,7,8},
-						                    {0,3,6},
-						                    {1,4,7},
-						                    {2,5,8},
-						                    {0,4,8},
-						                    {2,4,6}
-                                        };
-
-        private bool _gameOver;
-
         private Player _currentPlayer;
         private Player _firstPlayer;
+        private Dictionary<int, string> boardContent;
+        private Winner noWinner;
 
         public GameManager(IBoard board)
         {
             GameBoard = board;
-
             _firstPlayer = Player.Human;
             _currentPlayer = _firstPlayer;
-            _gameOver = false;
-            Winner = null;
+            boardContent = GameBoard.Content;
+            noWinner = null;
+            GameState = new GameState {GameOver = false};
         }
 
         public IBoard GameBoard { get; private set; }
 
-        public int[] WinnerIndex { get; private set; }
-
-        public Player? Winner { get; private set; }
-
-        public bool GameOver { get { return _gameOver; } }
-
         public Player CurrentPlayer { get { return _currentPlayer; } }
 
-        public void ProcessWinner()
-        {
-            var board = GameBoard.Content;
-            for (int i = 0; i < winningIndex.GetLength(0); i++)
-            {
-                int firstIndex = winningIndex[i, 0], secondIndex = winningIndex[i, 1], c = winningIndex[i, 2];
-
-                Func<KeyValuePair<int, string>, bool> containsO = input => (input.Key == firstIndex || input.Key == secondIndex || input.Key == c) && input.Value == "O";
-                Func<KeyValuePair<int, string>, bool> containsX = input => (input.Key == firstIndex || input.Key == secondIndex || input.Key == c) && input.Value == "X";
-
-                var oResult = board.Where(containsO).ToDictionary();
-                if (oResult.Count == 3)
-                {
-                    Winner = Player.Computer;
-                    WinnerIndex = oResult.Keys.ToArray();
-                    _gameOver = true;
-                    return;
-                }
-
-                var xResult = board.Where(containsX).ToDictionary();
-                if (xResult.Count == 3)
-                {
-                    Winner = Player.Human;
-                    WinnerIndex = xResult.Keys.ToArray();
-                    _gameOver = true;
-                    return;
-                }
-
-                if (board.Count == 9)
-                {
-                    _gameOver = true;
-                    Winner = null;
-                }
-            }
-        }
+        public GameState GameState { get; private set; }
 
         public void AddToGameBoard(int index, string value)
         {
             GameBoard.Add(index, value);
             changeCurrentPlayer();
-        }
-
-        private void changeCurrentPlayer()
-        {
-            _currentPlayer = _currentPlayer == Player.Human ? Player.Computer : Player.Human;
         }
 
         public void ResetGame()
@@ -99,7 +42,142 @@ namespace TikTak.Core
             _firstPlayer = _firstPlayer == Player.Human ? Player.Computer : Player.Human;
             _currentPlayer = _firstPlayer;
 
-            _gameOver = false;
+            GameState.GameOver = false;
+        }
+
+        public GameState ProcessWinner()
+        {
+            var winner = checkForThreeIdenticalValueInColumns();
+            if (winner != noWinner)
+            {
+                setWinningGameState(winner);
+                return GameState;
+            }
+
+            winner = checkForThreeIdenticalValueInRows();
+            if (winner != noWinner)
+            {
+                setWinningGameState(winner);
+                return GameState;
+            }
+
+            winner = checkForThreeIdenticalValueDiagonally();
+            if (winner != noWinner)
+            {
+                setWinningGameState(winner);
+                return GameState;
+            }
+
+            if (boardContent.Count == 9)
+            {
+                setDrawGameState();
+                return GameState;
+            }
+
+            setNoWinnerState();
+            return GameState;
+        }
+
+        private void setNoWinnerState()
+        {
+            GameState.GameOver = false;
+        }
+
+        private void setDrawGameState()
+        {
+            GameState.GameOver = true;
+            GameState.GameDrawn = true;
+            GameState.Winner = noWinner;
+        }
+
+        private void setWinningGameState(Winner winner)
+        {
+            GameState.GameDrawn = false;
+            GameState.GameOver = true;
+            GameState.Winner = winner;
+        }
+
+        private Winner checkWinner(int firstIndex, int secondIndex, int thirdIndex)
+        {
+            var oResult = boardContent.Where(firstIndex, secondIndex, thirdIndex, "O").ToDictionary();
+            if (oResult.Count == 3)
+            {
+                return new Winner() { Player = Player.Computer, WinnerIndex = oResult.Keys.ToArray() };
+            }
+
+            var xResult = boardContent.Where(firstIndex, secondIndex, thirdIndex, "X").ToDictionary();
+            if (xResult.Count == 3)
+            {
+                return new Winner {Player = Player.Human, WinnerIndex = xResult.Keys.ToArray()};
+            }
+            return noWinner;
+        }
+
+        private Winner checkForThreeIdenticalValueInColumns()
+        {
+            var rowIndex = new[,]
+            {
+                {0, 3, 6},
+                {1, 4, 7},
+                {2, 5, 8}
+            };
+
+            for (int i = 0; i < rowIndex.GetLength(0); i++)
+            {
+                int firstIndex = rowIndex[i, 0], secondIndex = rowIndex[i, 1], thirdIndex = rowIndex[i, 2];
+
+                var winner = checkWinner(firstIndex, secondIndex, thirdIndex);
+                if (winner != noWinner)
+                    return winner;
+            }
+
+            return noWinner;
+        }
+
+        private Winner checkForThreeIdenticalValueInRows()
+        {
+            var rowIndex = new[,]
+            {
+                {0, 1, 2},
+                {3, 4, 5},
+                {6, 7, 8}
+            };
+
+            for (int i = 0; i < rowIndex.GetLength(0); i++)
+            {
+                int firstIndex = rowIndex[i, 0], secondIndex = rowIndex[i, 1], thirdIndex = rowIndex[i, 2];
+
+                var winner = checkWinner(firstIndex, secondIndex, thirdIndex);
+                if (winner != noWinner)
+                    return winner;
+            }
+
+            return noWinner;
+        }
+
+        private Winner checkForThreeIdenticalValueDiagonally()
+        {
+            var rowIndex = new[,]
+            {
+                {0, 4, 8},
+                {2, 4, 6}
+            };
+
+            for (int i = 0; i < rowIndex.GetLength(0); i++)
+            {
+                int firstIndex = rowIndex[i, 0], secondIndex = rowIndex[i, 1], thirdIndex = rowIndex[i, 2];
+
+                var winner = checkWinner(firstIndex, secondIndex, thirdIndex);
+                if (winner != noWinner)
+                    return winner;
+            }
+
+            return noWinner;
+        }
+
+        private void changeCurrentPlayer()
+        {
+            _currentPlayer = _currentPlayer == Player.Human ? Player.Computer : Player.Human;
         }
     }
 }

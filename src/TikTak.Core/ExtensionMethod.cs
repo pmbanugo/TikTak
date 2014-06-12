@@ -9,5 +9,11 @@ namespace TikTak.Core
         {
             return data.ToDictionary(x => x.Key, x => x.Value);
         }
+
+        public static IEnumerable<KeyValuePair<int, string>> Where(this IEnumerable<KeyValuePair<int, string>> data, int firstIndex, int secondIndex, int thirdIndex, string value)
+        {
+            return data.Where(input =>
+                (input.Key == firstIndex || input.Key == secondIndex || input.Key == thirdIndex) && input.Value == value);
+        }
     }
 }

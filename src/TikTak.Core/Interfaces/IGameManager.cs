@@ -5,10 +5,8 @@
         void AddToGameBoard(int index, string value);
         Player CurrentPlayer { get; }
         IBoard GameBoard { get; }
-        bool GameOver { get; }
-        void ProcessWinner();
+        GameState GameState { get; }
+        GameState ProcessWinner();
         void ResetGame();
-        Player? Winner { get; }
-        int[] WinnerIndex { get; }
     }
 }

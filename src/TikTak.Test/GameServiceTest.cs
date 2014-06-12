@@ -91,7 +91,7 @@ namespace TikTak.Test
 
             Player? expectedPlayer = Player.Human;
             Player? actualPlayer = null;
-            gameService.GameCompleted += (sender, args) => actualPlayer = args.Winner;
+            gameService.GameCompleted += (sender, args) => actualPlayer = args.GameState.Winner.Player;
 
             //Act
             gameService.ProcessGameState();
@@ -111,7 +111,7 @@ namespace TikTak.Test
 
             Player? expectedPlayer = Player.Human;
             Player? actualPlayer = null;
-            gameService.GameCompleted += (sender, args) => actualPlayer = args.Winner;
+            gameService.GameCompleted += (sender, args) => actualPlayer = args.GameState.Winner.Player;
 
             //Act
             gameService.ProcessGameState();
@@ -131,7 +131,7 @@ namespace TikTak.Test
 
             Player? expectedPlayer = Player.Human;
             Player? actualPlayer = null;
-            gameService.GameCompleted += (sender, args) => actualPlayer = args.Winner;
+            gameService.GameCompleted += (sender, args) => actualPlayer = args.GameState.Winner.Player;
 
             //Act
             gameService.ProcessGameState();

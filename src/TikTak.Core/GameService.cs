@@ -31,11 +31,11 @@ namespace TikTak.Core
             }
         }
 
-        protected virtual void OnGameCompleted(GameState gameState, Player? winner, int[] winnerIndex)
+        protected virtual void OnGameCompleted(GameState gameState)
         {
             if (GameCompleted != null)
             {
-                GameCompleted(this, new GameCompletedEventArgs(gameState, winner, winnerIndex));
+                GameCompleted(this, new GameCompletedEventArgs(gameState));
             }
         }
 
@@ -51,15 +51,20 @@ namespace TikTak.Core
                 return;
             }
 
-            _gameManager.ProcessWinner();
+            //_gameManager.ProcessWinner();
 
-            if (GameOver())
+            //if (GameOver())
+            //{
+            //    var gameState = new GameState { GameOver = true, GameDrawn = _gameManager.Winner == null };
+            //    Player? winner = _gameManager.Winner;
+            //    int[] winnerIndex = _gameManager.WinnerIndex;
+
+            //    OnGameCompleted(gameState, winner, winnerIndex);
+            //}
+            var gameState = _gameManager.ProcessWinner();
+            if (gameState.GameOver)
             {
-                var gameState = new GameState { GameOver = true, GameDrawn = _gameManager.Winner == null };
-                Player? winner = _gameManager.Winner;
-                int[] winnerIndex = _gameManager.WinnerIndex;
-
-                OnGameCompleted(gameState, winner, winnerIndex);
+                OnGameCompleted(gameState);
             }
         }
 
@@ -75,7 +80,7 @@ namespace TikTak.Core
 
         public bool GameOver()
         {
-            return _gameManager.GameOver;
+            return _gameManager.GameState.GameOver;
         }
 
         public Player CurrentPlayer

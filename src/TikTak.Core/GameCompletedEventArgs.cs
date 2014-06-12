@@ -1,17 +1,15 @@
-﻿namespace TikTak.Core
+﻿using System;
+
+namespace TikTak.Core
 {
-    public class GameCompletedEventArgs
+    public class GameCompletedEventArgs : EventArgs
     {
-        public GameCompletedEventArgs(GameState gameState, Player? winner,int[] winnerIndex)
+        public GameCompletedEventArgs(GameState gameState)
         {
             GameState = gameState;
-            Winner = winner;
-            WinnerIndex = winnerIndex;
         }
 
         public GameState GameState { get; private set; }
-        public Player? Winner { get; set; }
-        public int[] WinnerIndex { get; set; }
 
     }
 }

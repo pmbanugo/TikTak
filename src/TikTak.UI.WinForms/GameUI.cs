@@ -65,17 +65,21 @@ namespace TikTak.UI.WinForms
                 lblDraw.Text = (Convert.ToInt32(lblDraw.Text) + 1).ToString();
                 MessageBox.Show("Game Drawn");
             }
-            if (e.Winner == Player.Human)
+            if (e.GameState.Winner != null)
             {
-                HighlightWinningSquares(e.WinnerIndex);
-                lblHuman.Text = (Convert.ToInt32(lblHuman.Text) + 1).ToString();
-                MessageBox.Show("You Won");
-            }
-            if (e.Winner == Player.Computer)
-            {
-                HighlightWinningSquares(e.WinnerIndex);
-                lblComputer.Text = (Convert.ToInt32(lblComputer.Text) + 1).ToString();
-                MessageBox.Show("You Lose");
+
+                if (e.GameState.Winner.Player == Player.Human)
+                {
+                    HighlightWinningSquares(e.GameState.Winner.WinnerIndex);
+                    lblHuman.Text = (Convert.ToInt32(lblHuman.Text) + 1).ToString();
+                    MessageBox.Show("You Won");
+                }
+                if (e.GameState.Winner.Player == Player.Computer)
+                {
+                    HighlightWinningSquares(e.GameState.Winner.WinnerIndex);
+                    lblComputer.Text = (Convert.ToInt32(lblComputer.Text) + 1).ToString();
+                    MessageBox.Show("You Lose");
+                }
             }
 
             Reset();
