@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TikTak.Core.Interfaces;
+﻿using TikTak.Core.Interfaces;
 
 namespace TikTak.Core
 {

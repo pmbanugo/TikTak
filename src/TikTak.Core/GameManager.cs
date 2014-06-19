@@ -70,7 +70,7 @@ namespace TikTak.Core
 
             if (boardContent.Count == 9)
             {
-                setDrawGameState();
+                setTiedGameState();
                 return GameState;
             }
 
@@ -83,16 +83,16 @@ namespace TikTak.Core
             GameState.GameOver = false;
         }
 
-        private void setDrawGameState()
+        private void setTiedGameState()
         {
             GameState.GameOver = true;
-            GameState.GameDrawn = true;
+            GameState.GameTied = true;
             GameState.Winner = noWinner;
         }
 
         private void setWinningGameState(Winner winner)
         {
-            GameState.GameDrawn = false;
+            GameState.GameTied = false;
             GameState.GameOver = true;
             GameState.Winner = winner;
         }

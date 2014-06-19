@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.scoreGroupBox = new System.Windows.Forms.GroupBox();
-            this.lblDraw = new System.Windows.Forms.Label();
+            this.lblTied = new System.Windows.Forms.Label();
             this.lblHuman = new System.Windows.Forms.Label();
             this.lblComputer = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -49,7 +49,7 @@
             // 
             // scoreGroupBox
             // 
-            this.scoreGroupBox.Controls.Add(this.lblDraw);
+            this.scoreGroupBox.Controls.Add(this.lblTied);
             this.scoreGroupBox.Controls.Add(this.lblHuman);
             this.scoreGroupBox.Controls.Add(this.lblComputer);
             this.scoreGroupBox.Controls.Add(this.label3);
@@ -62,15 +62,15 @@
             this.scoreGroupBox.TabStop = false;
             this.scoreGroupBox.Text = "Scores";
             // 
-            // lblDraw
+            // lblTied
             // 
-            this.lblDraw.AutoSize = true;
-            this.lblDraw.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDraw.Location = new System.Drawing.Point(70, 89);
-            this.lblDraw.Name = "lblDraw";
-            this.lblDraw.Size = new System.Drawing.Size(14, 14);
-            this.lblDraw.TabIndex = 8;
-            this.lblDraw.Text = "0";
+            this.lblTied.AutoSize = true;
+            this.lblTied.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTied.Location = new System.Drawing.Point(70, 89);
+            this.lblTied.Name = "lblTied";
+            this.lblTied.Size = new System.Drawing.Size(14, 14);
+            this.lblTied.TabIndex = 8;
+            this.lblTied.Text = "0";
             // 
             // lblHuman
             // 
@@ -98,9 +98,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(6, 89);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(36, 14);
+            this.label3.Size = new System.Drawing.Size(23, 14);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Draw";
+            this.label3.Text = "Tie";
             // 
             // label2
             // 
@@ -239,7 +239,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox scoreGroupBox;
-        private System.Windows.Forms.Label lblDraw;
+        private System.Windows.Forms.Label lblTied;
         private System.Windows.Forms.Label lblHuman;
         private System.Windows.Forms.Label lblComputer;
         private System.Windows.Forms.Label label3;

@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using TikTak.Core;
+﻿using TikTak.Core;
 using TikTak.Core.Interfaces;
 using Xunit;
 
-namespace TikTak.Test
+namespace TikTak.Test.Core
 {
     public class GameControllerTest
     {
@@ -45,10 +44,11 @@ namespace TikTak.Test
         [Fact]
         public void ShouldRestartGame()
         {
+            var expectedResult = Player.Human;
             controller.RestartGame();
             var actualResult = gameService.CurrentPlayer;
 
-            Assert.Equal(Player.Human, actualResult);
+            Assert.Equal(expectedResult, actualResult);
         }
     }
 }

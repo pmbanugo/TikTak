@@ -60,10 +60,10 @@ namespace TikTak.UI.WinForms
 
         private void gameService_GameCompleted(object sender, GameCompletedEventArgs e)
         {
-            if (e.GameState.GameDrawn)
+            if (e.GameState.GameTied)
             {
-                lblDraw.Text = (Convert.ToInt32(lblDraw.Text) + 1).ToString();
-                MessageBox.Show("Game Drawn");
+                lblTied.Text = (Convert.ToInt32(lblTied.Text) + 1).ToString();
+                MessageBox.Show("Game Tied", "Game Over");
             }
             if (e.GameState.Winner != null)
             {
@@ -72,13 +72,13 @@ namespace TikTak.UI.WinForms
                 {
                     HighlightWinningSquares(e.GameState.Winner.WinnerIndex);
                     lblHuman.Text = (Convert.ToInt32(lblHuman.Text) + 1).ToString();
-                    MessageBox.Show("You Won");
+                    MessageBox.Show("You Won", "Game Over");
                 }
                 if (e.GameState.Winner.Player == Player.Computer)
                 {
                     HighlightWinningSquares(e.GameState.Winner.WinnerIndex);
                     lblComputer.Text = (Convert.ToInt32(lblComputer.Text) + 1).ToString();
-                    MessageBox.Show("You Lose");
+                    MessageBox.Show("You Lose", "Game Over");
                 }
             }
 

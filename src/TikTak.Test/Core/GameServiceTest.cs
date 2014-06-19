@@ -1,19 +1,17 @@
-﻿using System;
-using TikTak.Core;
+﻿using TikTak.Core;
 using TikTak.Core.Interfaces;
 using Xunit;
 
-namespace TikTak.Test
+namespace TikTak.Test.Core
 {
     public class GameServiceTest
     {
-        private IGameManager gameManager;
         private IGameService gameService;
 
         public GameServiceTest()
         {
             IBoard board = new Board();
-            gameManager = new GameManager(board);
+            IGameManager gameManager = new GameManager(board);
             gameService = new GameService(gameManager);
         }
 
@@ -24,7 +22,9 @@ namespace TikTak.Test
             var boardContent = gameService.GetGameBoard().Content;
             var gameover = gameService.GameOver();
 
-            Assert.False(boardContent.Count > 0 && gameover);
+            var result = boardContent.Count > 0 && gameover;
+
+            Assert.False(result);
         }
 
         [Fact]
@@ -56,7 +56,7 @@ namespace TikTak.Test
         }
 
         [Fact]
-        public void GameIsADraw()
+        public void GameIsTied()
         {
             //Arrange
             var result = false;
@@ -71,7 +71,7 @@ namespace TikTak.Test
             gameService.AddToGameBoard(7, "O");
             gameService.AddToGameBoard(8, "X");
             
-            gameService.GameCompleted += (sender, args) => result = args.GameState.GameDrawn;
+            gameService.GameCompleted += (sender, args) => result = args.GameState.GameTied;
 
             //Act
             gameService.ProcessGameState();

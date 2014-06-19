@@ -3,7 +3,7 @@ using TikTak.Core;
 using TikTak.Core.Interfaces;
 using Xunit;
 
-namespace TikTak.Test
+namespace TikTak.Test.Core
 {
     public class BoardTest
     {
@@ -78,8 +78,9 @@ namespace TikTak.Test
 
             board.Add(key, value);
             board.Clear();
+            var result = board.ContainsKey(key);
 
-            Assert.False(board.ContainsKey(key));
+            Assert.False(result);
         }
     }
 }

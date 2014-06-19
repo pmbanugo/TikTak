@@ -51,16 +51,6 @@ namespace TikTak.Core
                 return;
             }
 
-            //_gameManager.ProcessWinner();
-
-            //if (GameOver())
-            //{
-            //    var gameState = new GameState { GameOver = true, GameDrawn = _gameManager.Winner == null };
-            //    Player? winner = _gameManager.Winner;
-            //    int[] winnerIndex = _gameManager.WinnerIndex;
-
-            //    OnGameCompleted(gameState, winner, winnerIndex);
-            //}
             var gameState = _gameManager.ProcessWinner();
             if (gameState.GameOver)
             {
